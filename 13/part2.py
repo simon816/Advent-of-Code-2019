@@ -124,7 +124,7 @@ with open('keys.txt', 'r') as f:
     keys = [int(k) for k in f.read().strip().split(',')]
 
 presses = []
-import  time
+
 def main(stdscr):
     score = 0
     while True:
@@ -149,7 +149,6 @@ def main(stdscr):
                     val = 1
                 else:
                     val = 0
-            time.sleep(0.002)
             inputs.append(val)
             presses.append(val)
             continue
@@ -163,4 +162,4 @@ def main(stdscr):
 from curses import wrapper
 print(wrapper(main))
 with open('keys.txt', 'w') as f:
-    f.write(','.join(map(str, presses)))
+    f.write(','.join(map(str, presses[:-35])))
