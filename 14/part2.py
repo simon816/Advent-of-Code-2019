@@ -13,31 +13,6 @@ for line in sys.stdin.readlines():
     assert out not in dependencies
     dependencies[out] = (out_qty, inputs)
 
-residue = {k: 0 for k in dependencies.keys()}
-residue['ORE'] = 100000000
-
-count = 0
-
-def produce(elem):
-    if elem == 'ORE':
-        print(count)
-        exit(0)
-    get_qty, depends = dependencies[elem]
-    for d_qty, d_elem in depends:
-        acquire(d_elem, d_qty)
-    residue[elem] += get_qty
-
-def acquire(elem, qty):
-    while residue[elem] < qty:
-        produce(elem)
-    residue[elem] -= qty
-
-"""
-while True:
-    acquire('FUEL', 1)
-    count += 1
-"""
-
 print("#include <stdlib.h>\n#include <stdio.h>")
 
 print("int count = 0;")
